@@ -1,7 +1,7 @@
 import numpy as np
 
 # Define the puzzle size and the blocks
-puzzle_size = 6
+puzzle_size = 5
 blocks = {
     'long_z': {
         'shape': np.array([
@@ -9,16 +9,16 @@ blocks = {
             [0, 1, 0],
             [0, 1, 1]
         ]),
-        'quantity': 1,
+        'quantity': 0,
         'id': 'Z'
     },
-    'L': {
+    'l': {
         'shape': np.array([
             [1, 0],
             [1, 0],
             [1, 1]
         ]),
-        'quantity': 3,
+        'quantity': 0,
         'id': 'L'
     },
     'invert_l': {
@@ -27,37 +27,40 @@ blocks = {
             [0, 1],
             [1, 1]
         ]),
-        'quantity': 2,
-        'id': '<'
+        'quantity': 0,
+        'id': '0xE2'
     },
-    'invert_z': {
+    's': {
         'shape': np.array([
             [0, 1, 1],
             [1, 1, 0]
         ]),
-        'quantity': 2,
-        'id': 'S'
+        'quantity': 0,
+        'id': 's'
+    },
+    'z': {
+        'shape': np.array([
+            [1, 1, 0],
+            [0, 1, 1]
+        ]),
+        'quantity': 0,
+        'id': 'z'
     },
     'short_l': {
         'shape': np.array([
             [1, 0],
             [1, 1]
         ]),
-        'quantity': 1,
-        'id': 'sL'
+        'quantity': 0,
+        'id': 'l'
+    },
+    'dot': {
+        'shape': np.array([
+            [1]
+        ]),
+        'quantity': 0,
+        'id': 'd'
     }
-}
-
-block_ids = {
-    'long_z': 'Z',
-    'l': 'L',
-    'l2': 'L',
-    'l3': 'L',
-    'invert_l': '<',
-    'invert_l2': '<',
-    'invert_z': 's',
-    'invert_z2': 's',
-    'short_l': 'l'
 }
 
 def rotate(block, times=1):
@@ -96,12 +99,15 @@ def solve_puzzle(puzzle, blocks, block_keys=None, idx=0):
 
     block_key = block_keys[idx]
     block_data = blocks[block_key]
+
+    # If no blocks of this type should be placed, skip to the next block
+    if block_data['quantity'] == 0:
+        return solve_puzzle(puzzle, blocks, block_keys, idx + 1)
+
     block_variants = [block_data['shape']] + [rotate(block_data['shape'], i) for i in range(1, 4)]
     block_id = block_data['id']
 
     for block in block_variants:
-        if block_data['quantity'] == 0:
-            break  # Skip if no more blocks of this type are left to place
         for i in range(puzzle_size - block.shape[0] + 1):
             for j in range(puzzle_size - block.shape[1] + 1):
                 if fits(puzzle, block, (i, j)):
@@ -114,7 +120,6 @@ def solve_puzzle(puzzle, blocks, block_keys=None, idx=0):
                     blocks[block_key]['quantity'] += 1  # Increment the block quantity back
 
     return False, puzzle
-
 
 # Initialize the puzzle grid with spaces representing empty slots
 puzzle_grid = np.full((puzzle_size, puzzle_size), ' ', dtype='<U1')
