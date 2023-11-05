@@ -53,7 +53,7 @@ blocks = {
         ]),
         'quantity': 0,
         'label': 'O',
-        'rotations': False
+        'unique_rotations': 1
     },
     't': {
         'shape': np.array([
@@ -69,6 +69,7 @@ blocks = {
         ]),
         'quantity': 0,
         'label': 'I',
+        'unique_rotations': 2
     },
     'short_l': {
         'shape': np.array([
@@ -83,7 +84,8 @@ blocks = {
             [1, 1]
         ]),
         'quantity': 0,
-        'label': 'i'
+        'label': 'i',
+        'unique_rotations': 2
     },
     'dot': {
         'shape': np.array([
@@ -91,7 +93,7 @@ blocks = {
         ]),
         'quantity': 0,
         'label': 'o',
-        'rotations': False
+        'unique_rotations': 1
     }
 }
 
@@ -136,10 +138,11 @@ def solve_puzzle(puzzle, blocks, block_keys=None, idx=0):
     if block_data['quantity'] == 0:
         return solve_puzzle(puzzle, blocks, block_keys, idx + 1)
 
-    if block_data['rotations']:
-        block_variants = [block_data['shape']] + [rotate(block_data['shape'], i) for i in range(1, 4)]
+    # Generate the block variants based on the number of unique rotations
+    if 'unique_rotations' in block_data:
+        block_variants = [rotate(block_data['shape'], i) for i in range(block_data['unique_rotations'])]
     else:
-        block_variants = [block_data['shape']]  # Only the original shape is used
+        block_variants = [block_data['shape']] + [rotate(block_data['shape'], i) for i in range(1, 4)]
 
     block_id = block_data['label']
 
