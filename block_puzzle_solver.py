@@ -10,7 +10,7 @@ blocks = {
             [0, 1, 1]
         ]),
         'quantity': 0,
-        'id': 'Z'
+        'label': 'Z'
     },
     'l': {
         'shape': np.array([
@@ -19,7 +19,7 @@ blocks = {
             [1, 1]
         ]),
         'quantity': 0,
-        'id': 'L'
+        'label': 'L'
     },
     'j': {
         'shape': np.array([
@@ -28,7 +28,7 @@ blocks = {
             [1, 1]
         ]),
         'quantity': 0,
-        'id': 'J'
+        'label': 'J'
     },
     's': {
         'shape': np.array([
@@ -36,7 +36,7 @@ blocks = {
             [1, 1, 0]
         ]),
         'quantity': 0,
-        'id': 's'
+        'label': 's'
     },
     'z': {
         'shape': np.array([
@@ -44,7 +44,7 @@ blocks = {
             [0, 1, 1]
         ]),
         'quantity': 0,
-        'id': 'z'
+        'label': 'z'
     },
     'square': {
         'shape': np.array([
@@ -52,7 +52,7 @@ blocks = {
             [1, 1]
         ]),
         'quantity': 0,
-        'id': 'O',
+        'label': 'O',
         'rotations': False
     },
     't': {
@@ -61,14 +61,14 @@ blocks = {
             [1, 1, 1]
         ]),
         'quantity': 0,
-        'id': 't'
+        'label': 't'
     },
     'i': {
         'shape': np.array([
             [1, 1, 1, 1]
         ]),
         'quantity': 0,
-        'id': 'I',
+        'label': 'I',
     },
     'short_l': {
         'shape': np.array([
@@ -76,21 +76,21 @@ blocks = {
             [1, 1]
         ]),
         'quantity': 0,
-        'id': 'l'
+        'label': 'l'
     },
     'short_i': {
         'shape': np.array([
             [1, 1]
         ]),
         'quantity': 0,
-        'id': 'i'
+        'label': 'i'
     },
     'dot': {
         'shape': np.array([
             [1]
         ]),
         'quantity': 0,
-        'id': 'o',
+        'label': 'o',
         'rotations': False
     }
 }
@@ -141,7 +141,7 @@ def solve_puzzle(puzzle, blocks, block_keys=None, idx=0):
     else:
         block_variants = [block_data['shape']]  # Only the original shape is used
 
-    block_id = block_data['id']
+    block_id = block_data['label']
 
     for block in block_variants:
         for i in range(puzzle_size - block.shape[0] + 1):
