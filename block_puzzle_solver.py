@@ -196,6 +196,7 @@ class Application(tk.Frame):
         super().__init__(master)
         self.master = master
         self.grid()  # Change pack to grid for better control over layout
+        self.total_value = 0
         self.create_widgets()
 
     def create_widgets(self):
@@ -241,6 +242,9 @@ class Application(tk.Frame):
                 i += 1
                 j = 0
 
+        for block_name, entry in self.block_entries.items():
+            entry.bind('<KeyRelease>', self.update_total_value)
+
         # Solve button
         self.solve_button = tk.Button(self, text="Solve", command=self.solve)
         self.solve_button.grid(row=i+1, column=0, columnspan=8)
@@ -248,6 +252,26 @@ class Application(tk.Frame):
         # Result display
         self.result_label = tk.Label(self, text="")
         self.result_label.grid(row=i+2, column=0, columnspan=8)
+
+        # Display the total value
+        self.result_label["text"] = f"Total block value: {self.total_value}"
+    
+    def update_total_value(self, event=None):
+        # Reset the total value to 0 before calculating it again
+        self.total_value = 0
+
+        # Calculate the total value without solving the puzzle
+        for block_name, entry in self.block_entries.items():
+            try:
+                quantity = int(entry.get())
+                block_value = np.sum(blocks[block_name]['shape'])
+                self.total_value += quantity * block_value
+            except ValueError:
+                # If the entry is not a number, we can either skip it or set it to 0
+                continue
+
+        # Now update the result label's text with the new total value
+        self.result_label["text"] = f"Total block value: {self.total_value}"
 
     def solve(self):
         try:
