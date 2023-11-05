@@ -1,3 +1,5 @@
+import tkinter as tk
+from tkinter import messagebox
 import numpy as np
 
 # Define the puzzle size and the blocks
@@ -172,13 +174,72 @@ def solve_puzzle(puzzle, blocks, block_keys=None, idx=0):
 
     return False, puzzle
 
-# Initialize the puzzle grid with spaces representing empty slots
-puzzle_grid = np.full((puzzle_size["hight"], puzzle_size["width"]), ' ', dtype='<U1')
+class Application(tk.Frame):
+    def __init__(self, master=None):
+        super().__init__(master)
+        self.master = master
+        self.pack()
+        self.create_widgets()
 
-# Attempt to solve the puzzle
-solution_exists, solved_puzzle = solve_puzzle(puzzle_grid, blocks)
-if solution_exists:
-    print("Solution found:")
-    print(np.array2string(solved_puzzle, separator=' '))
-else:
-    print("No solution exists.")
+    def create_widgets(self):
+        # Entry for the height and width of the puzzle
+        self.height_entry = tk.Entry(self)
+        self.height_entry.pack()
+        self.height_label = tk.Label(self, text="Height:")
+        self.height_label.pack()
+
+        self.width_entry = tk.Entry(self)
+        self.width_entry.pack()
+        self.width_label = tk.Label(self, text="Width:")
+        self.width_label.pack()
+
+        # Dictionary to hold the quantity entries for each block
+        self.block_entries = {}
+
+        for block_name, block_info in blocks.items():
+            label = tk.Label(self, text=block_name)
+            label.pack()
+            
+            entry = tk.Entry(self)
+            entry.pack()
+            
+            self.block_entries[block_name] = entry
+
+        # Solve button
+        self.solve_button = tk.Button(self)
+        self.solve_button["text"] = "Solve"
+        self.solve_button["command"] = self.solve
+        self.solve_button.pack(side="top")
+
+        # Quit button
+        self.quit = tk.Button(self, text="QUIT", fg="red", command=self.master.destroy)
+        self.quit.pack(side="bottom")
+
+    def solve(self):
+        try:
+            # Get puzzle dimensions
+            height = int(self.height_entry.get())
+            width = int(self.width_entry.get())
+            
+            # Update blocks with quantities from entries
+            for block_name, entry in self.block_entries.items():
+                blocks[block_name]['quantity'] = int(entry.get())
+            
+            # Initialize the puzzle grid with spaces representing empty slots
+            puzzle_grid = np.full((height, width), ' ', dtype='<U1')
+
+            # Attempt to solve the puzzle
+            solution_exists, solved_puzzle = solve_puzzle(puzzle_grid, blocks)
+            
+            if solution_exists:
+                # Show the solution in a message box or another suitable widget
+                messagebox.showinfo("Solution", f"Solution found:\n{solved_puzzle}")
+            else:
+                messagebox.showinfo("Solution", "No solution exists.")
+        except ValueError as e:
+            messagebox.showwarning("Invalid Input", "Please enter valid numbers for all fields.")
+
+root = tk.Tk()
+root.title("Block Puzzle Solver")
+app = Application(master=root)
+app.mainloop()
