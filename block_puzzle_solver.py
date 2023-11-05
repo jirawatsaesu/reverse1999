@@ -15,6 +15,15 @@ blocks = {
         'quantity': 0,
         'label': 'Z'
     },
+    'long_t': {
+        'shape': np.array([
+            [0, 1, 0],
+            [0, 1, 0],
+            [1, 1, 1]
+        ]),
+        'quantity': 0,
+        'label': 'T'
+    },
     'l': {
         'shape': np.array([
             [1, 0],
