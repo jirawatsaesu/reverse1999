@@ -28,7 +28,7 @@ blocks = {
             [1, 1]
         ]),
         'quantity': 0,
-        'id': '0xE2'
+        'id': '<'
     },
     's': {
         'shape': np.array([
