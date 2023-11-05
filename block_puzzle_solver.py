@@ -21,14 +21,14 @@ blocks = {
         'quantity': 0,
         'id': 'L'
     },
-    'invert_l': {
+    'j': {
         'shape': np.array([
             [0, 1],
             [0, 1],
             [1, 1]
         ]),
         'quantity': 0,
-        'id': '<'
+        'id': 'J'
     },
     's': {
         'shape': np.array([
@@ -46,6 +46,29 @@ blocks = {
         'quantity': 0,
         'id': 'z'
     },
+    'square': {
+        'shape': np.array([
+            [1, 1],
+            [1, 1]
+        ]),
+        'quantity': 0,
+        'id': 'o'
+    },
+    'short_t': {
+        'shape': np.array([
+            [0, 1, 0],
+            [1, 1, 1]
+        ]),
+        'quantity': 0,
+        'id': 't'
+    },
+    'i': {
+        'shape': np.array([
+            [1, 1, 1, 1]
+        ]),
+        'quantity': 0,
+        'id': 'I',
+    },
     'short_l': {
         'shape': np.array([
             [1, 0],
@@ -53,6 +76,13 @@ blocks = {
         ]),
         'quantity': 0,
         'id': 'l'
+    },
+    'short_i': {
+        'shape': np.array([
+            [1, 1]
+        ]),
+        'quantity': 0,
+        'id': 'i'
     },
     'dot': {
         'shape': np.array([
