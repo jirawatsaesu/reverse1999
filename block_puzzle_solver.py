@@ -200,33 +200,37 @@ class Application(tk.Frame):
 
         # Label for the block entries
         self.blocks_label = tk.Label(self, text="Blocks:")
-        self.blocks_label.grid(row=2, column=0, columnspan=2)
+        self.blocks_label.grid(row=2, column=0, columnspan=8)
 
         # Dictionary to hold the quantity entries for each block
         self.block_entries = {}
         i = 3  # Start at row 3 for the block entries
+        j = 0  # Start at column 0 for the block entries
         for block_name, block_info in blocks.items():
             label = tk.Label(self, text=f"{block_name} quantity:")
-            label.grid(row=i, column=0)
+            label.grid(row=i, column=j)
             
             entry = tk.Entry(self)
             entry.insert(0, "0")  # Set default value to 0
-            entry.grid(row=i, column=1)
+            entry.grid(row=i, column=j+1)
             
             self.block_entries[block_name] = entry
-            i += 1
+            
+            # Increase column count by 2 for the next entry pair (label and entry)
+            j += 2
+            
+            # If we have added 4 input pairs, increase row count and reset column count
+            if j >= 8:
+                i += 1
+                j = 0
 
         # Solve button
         self.solve_button = tk.Button(self, text="Solve", command=self.solve)
-        self.solve_button.grid(row=i, column=0, columnspan=2)
+        self.solve_button.grid(row=i+1, column=0, columnspan=8)
 
         # Result display
         self.result_label = tk.Label(self, text="")
-        self.result_label.grid(row=i+1, column=0, columnspan=2)
-
-        # Quit button
-        self.quit_button = tk.Button(self, text="Quit", command=self.master.destroy)
-        self.quit_button.grid(row=i+2, column=0, columnspan=2)
+        self.result_label.grid(row=i+2, column=0, columnspan=8)
 
     def solve(self):
         try:
