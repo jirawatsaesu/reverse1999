@@ -148,6 +148,10 @@ def remove_block(puzzle, block, pos):
                 puzzle[i + pos[0]][j + pos[1]] = ' '
     return puzzle
 
+def get_block_representation(block, fill='[]', empty='  '):
+    """Create a string representation of a block with given fill and empty symbols."""
+    return '\n'.join([''.join([fill if cell else empty for cell in row]) for row in block])
+
 def solve_puzzle(puzzle, blocks, block_keys=None, idx=0):
     if block_keys is None:
         block_keys = list(blocks.keys())
@@ -216,17 +220,21 @@ class Application(tk.Frame):
         i = 3  # Start at row 3 for the block entries
         j = 0  # Start at column 0 for the block entries
         for block_name, block_info in blocks.items():
+            block_visual = get_block_representation(block_info['shape'])
+            block_label = tk.Label(self, text=block_visual, font=("Courier", 12), justify=tk.LEFT)
+            block_label.grid(row=i, column=j)
+
             label = tk.Label(self, text=f"{block_name} quantity:")
-            label.grid(row=i, column=j)
+            label.grid(row=i, column=j+1)
             
             entry = tk.Entry(self)
             entry.insert(0, "0")  # Set default value to 0
-            entry.grid(row=i, column=j+1)
+            entry.grid(row=i, column=j+2)
             
             self.block_entries[block_name] = entry
             
             # Increase column count by 2 for the next entry pair (label and entry)
-            j += 2
+            j += 3
             
             # If we have added 4 input pairs, increase row count and reset column count
             if j >= 8:
