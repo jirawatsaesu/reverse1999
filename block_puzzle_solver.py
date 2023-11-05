@@ -245,16 +245,18 @@ class Application(tk.Frame):
         for block_name, entry in self.block_entries.items():
             entry.bind('<KeyRelease>', self.update_total_value)
 
+        # Volume display
+        self.total_volume = tk.Label(self, text="total")
+        self.total_volume.grid(row=i+1, column=0, columnspan=8)
+        self.total_volume["text"] = f"Total Block value: {self.total_value}"
+
         # Solve button
         self.solve_button = tk.Button(self, text="Solve", command=self.solve)
-        self.solve_button.grid(row=i+1, column=0, columnspan=8)
+        self.solve_button.grid(row=i+2, column=0, columnspan=8)
 
         # Result display
         self.result_label = tk.Label(self, text="")
-        self.result_label.grid(row=i+2, column=0, columnspan=8)
-
-        # Display the total value
-        self.result_label["text"] = f"Total block value: {self.total_value}"
+        self.result_label.grid(row=i+3, column=0, columnspan=8)
     
     def update_total_value(self, event=None):
         # Reset the total value to 0 before calculating it again
@@ -270,8 +272,8 @@ class Application(tk.Frame):
                 # If the entry is not a number, we can either skip it or set it to 0
                 continue
 
-        # Now update the result label's text with the new total value
-        self.result_label["text"] = f"Total block value: {self.total_value}"
+        # Now update the volume label's text with the new total value
+        self.total_volume["text"] = f"Total block value: {self.total_value}"
 
     def solve(self):
         try:
