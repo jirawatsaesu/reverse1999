@@ -1,7 +1,10 @@
 import numpy as np
 
 # Define the puzzle size and the blocks
-puzzle_size = 5
+puzzle_size = {
+    "hight": 5,
+    "width": 5,
+}
 blocks = {
     'long_z': {
         'shape': np.array([
@@ -104,8 +107,8 @@ def fits(puzzle, block, pos):
     for i in range(block.shape[0]):
         for j in range(block.shape[1]):
             if block[i][j] == 1:
-                if (i + pos[0] >= puzzle_size or
-                        j + pos[1] >= puzzle_size or
+                if (i + pos[0] >= puzzle_size["hight"] or
+                        j + pos[1] >= puzzle_size["width"] or
                         puzzle[i + pos[0]][j + pos[1]] != ' '):
                     return False
     return True
@@ -147,8 +150,8 @@ def solve_puzzle(puzzle, blocks, block_keys=None, idx=0):
     block_id = block_data['label']
 
     for block in block_variants:
-        for i in range(puzzle_size - block.shape[0] + 1):
-            for j in range(puzzle_size - block.shape[1] + 1):
+        for i in range(puzzle_size["hight"] - block.shape[0] + 1):
+            for j in range(puzzle_size["width"] - block.shape[1] + 1):
                 if fits(puzzle, block, (i, j)):
                     puzzle = place_block(puzzle, block, (i, j), block_id)
                     blocks[block_key]['quantity'] -= 1  # Decrement the block quantity
@@ -161,7 +164,7 @@ def solve_puzzle(puzzle, blocks, block_keys=None, idx=0):
     return False, puzzle
 
 # Initialize the puzzle grid with spaces representing empty slots
-puzzle_grid = np.full((puzzle_size, puzzle_size), ' ', dtype='<U1')
+puzzle_grid = np.full((puzzle_size["hight"], puzzle_size["width"]), ' ', dtype='<U1')
 
 # Attempt to solve the puzzle
 solution_exists, solved_puzzle = solve_puzzle(puzzle_grid, blocks)
