@@ -178,42 +178,55 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
-        self.pack()
+        self.grid()  # Change pack to grid for better control over layout
         self.create_widgets()
 
     def create_widgets(self):
-        # Entry for the height and width of the puzzle
-        self.height_entry = tk.Entry(self)
-        self.height_entry.pack()
+        # Default puzzle size
+        default_puzzle_size = 5
+        
+        # Entry for the height and width of the puzzle with default value set to 5
         self.height_label = tk.Label(self, text="Height:")
-        self.height_label.pack()
+        self.height_label.grid(row=0, column=0)
+        self.height_entry = tk.Entry(self)
+        self.height_entry.insert(0, str(default_puzzle_size))  # Set default value
+        self.height_entry.grid(row=0, column=1)
 
-        self.width_entry = tk.Entry(self)
-        self.width_entry.pack()
         self.width_label = tk.Label(self, text="Width:")
-        self.width_label.pack()
+        self.width_label.grid(row=1, column=0)
+        self.width_entry = tk.Entry(self)
+        self.width_entry.insert(0, str(default_puzzle_size))  # Set default value
+        self.width_entry.grid(row=1, column=1)
+
+        # Label for the block entries
+        self.blocks_label = tk.Label(self, text="Blocks:")
+        self.blocks_label.grid(row=2, column=0, columnspan=2)
 
         # Dictionary to hold the quantity entries for each block
         self.block_entries = {}
-
+        i = 3  # Start at row 3 for the block entries
         for block_name, block_info in blocks.items():
-            label = tk.Label(self, text=block_name)
-            label.pack()
+            label = tk.Label(self, text=f"{block_name} quantity:")
+            label.grid(row=i, column=0)
             
             entry = tk.Entry(self)
-            entry.pack()
+            entry.insert(0, "0")  # Set default value to 0
+            entry.grid(row=i, column=1)
             
             self.block_entries[block_name] = entry
+            i += 1
 
         # Solve button
-        self.solve_button = tk.Button(self)
-        self.solve_button["text"] = "Solve"
-        self.solve_button["command"] = self.solve
-        self.solve_button.pack(side="top")
+        self.solve_button = tk.Button(self, text="Solve", command=self.solve)
+        self.solve_button.grid(row=i, column=0, columnspan=2)
+
+        # Result display
+        self.result_label = tk.Label(self, text="")
+        self.result_label.grid(row=i+1, column=0, columnspan=2)
 
         # Quit button
-        self.quit = tk.Button(self, text="QUIT", fg="red", command=self.master.destroy)
-        self.quit.pack(side="bottom")
+        self.quit_button = tk.Button(self, text="Quit", command=self.master.destroy)
+        self.quit_button.grid(row=i+2, column=0, columnspan=2)
 
     def solve(self):
         try:
@@ -232,12 +245,19 @@ class Application(tk.Frame):
             solution_exists, solved_puzzle = solve_puzzle(puzzle_grid, blocks)
             
             if solution_exists:
-                # Show the solution in a message box or another suitable widget
-                messagebox.showinfo("Solution", f"Solution found:\n{solved_puzzle}")
+                # Show the solution in the result label
+                self.display_solution(solved_puzzle)
             else:
-                messagebox.showinfo("Solution", "No solution exists.")
+                self.result_label["text"] = "No solution exists."
         except ValueError as e:
             messagebox.showwarning("Invalid Input", "Please enter valid numbers for all fields.")
+
+    def display_solution(self, solved_puzzle):
+        # Clear any previous results
+        self.result_label["text"] = ""
+        # Convert numpy array to string and set it to the label
+        solution_str = np.array2string(solved_puzzle, separator=' ')
+        self.result_label["text"] = solution_str
 
 root = tk.Tk()
 root.title("Block Puzzle Solver")
