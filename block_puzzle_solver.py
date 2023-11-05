@@ -52,9 +52,10 @@ blocks = {
             [1, 1]
         ]),
         'quantity': 0,
-        'id': 'o'
+        'id': 'O',
+        'rotations': False
     },
-    'short_t': {
+    't': {
         'shape': np.array([
             [0, 1, 0],
             [1, 1, 1]
@@ -89,7 +90,8 @@ blocks = {
             [1]
         ]),
         'quantity': 0,
-        'id': 'd'
+        'id': 'o',
+        'rotations': False
     }
 }
 
@@ -134,7 +136,11 @@ def solve_puzzle(puzzle, blocks, block_keys=None, idx=0):
     if block_data['quantity'] == 0:
         return solve_puzzle(puzzle, blocks, block_keys, idx + 1)
 
-    block_variants = [block_data['shape']] + [rotate(block_data['shape'], i) for i in range(1, 4)]
+    if block_data['rotations']:
+        block_variants = [block_data['shape']] + [rotate(block_data['shape'], i) for i in range(1, 4)]
+    else:
+        block_variants = [block_data['shape']]  # Only the original shape is used
+
     block_id = block_data['id']
 
     for block in block_variants:
