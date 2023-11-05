@@ -2,11 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import numpy as np
 
-# Define the puzzle size and the blocks
-puzzle_size = {
-    "hight": 5,
-    "width": 5,
-}
+# Define the blocks
 blocks = {
     'long_z': {
         'shape': np.array([
@@ -128,15 +124,12 @@ block_colors = {
 }
 
 
-def rotate(block, times=1):
-    return np.rot90(block, times)
-
 def fits(puzzle, block, pos):
     for i in range(block.shape[0]):
         for j in range(block.shape[1]):
             if block[i][j] == 1:
-                if (i + pos[0] >= puzzle_size["hight"] or
-                        j + pos[1] >= puzzle_size["width"] or
+                if (i + pos[0] >= puzzle.shape[0] or
+                        j + pos[1] >= puzzle.shape[1] or
                         puzzle[i + pos[0]][j + pos[1]] != ' '):
                     return False
     return True
@@ -171,15 +164,15 @@ def solve_puzzle(puzzle, blocks, block_keys=None, idx=0):
 
     # Generate the block variants based on the number of unique rotations
     if 'unique_rotations' in block_data:
-        block_variants = [rotate(block_data['shape'], i) for i in range(block_data['unique_rotations'])]
+        block_variants = [np.rot90(block_data['shape'], i) for i in range(block_data['unique_rotations'])]
     else:
-        block_variants = [block_data['shape']] + [rotate(block_data['shape'], i) for i in range(1, 4)]
+        block_variants = [block_data['shape']] + [np.rot90(block_data['shape'], i) for i in range(1, 4)]
 
     block_id = block_data['label']
 
     for block in block_variants:
-        for i in range(puzzle_size["hight"] - block.shape[0] + 1):
-            for j in range(puzzle_size["width"] - block.shape[1] + 1):
+        for i in range(puzzle.shape[0] - block.shape[0] + 1):
+            for j in range(puzzle.shape[1] - block.shape[1] + 1):
                 if fits(puzzle, block, (i, j)):
                     puzzle = place_block(puzzle, block, (i, j), block_id)
                     blocks[block_key]['quantity'] -= 1  # Decrement the block quantity
