@@ -188,25 +188,23 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
-        self.grid()  # Change pack to grid for better control over layout
+        self.grid()
         self.total_value = 0
         self.create_widgets()
 
     def create_widgets(self):
-        # Default puzzle size
         default_puzzle_size = 5
-        
-        # Entry for the height and width of the puzzle with default value set to 5
+
         self.height_label = tk.Label(self, text="Height:")
         self.height_label.grid(row=0, column=0)
         self.height_entry = tk.Entry(self)
-        self.height_entry.insert(0, str(default_puzzle_size))  # Set default value
+        self.height_entry.insert(0, str(default_puzzle_size))
         self.height_entry.grid(row=0, column=1)
 
         self.width_label = tk.Label(self, text="Width:")
         self.width_label.grid(row=1, column=0)
         self.width_entry = tk.Entry(self)
-        self.width_entry.insert(0, str(default_puzzle_size))  # Set default value
+        self.width_entry.insert(0, str(default_puzzle_size))
         self.width_entry.grid(row=1, column=1)
 
         # Label for the block entries
