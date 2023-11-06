@@ -22,6 +22,14 @@ blocks = {
         'quantity': 0,
         'label': 'T'
     },
+    'u': {
+        'shape': np.array([
+            [1, 0, 1],
+            [1, 1, 1]
+        ]),
+        'quantity': 0,
+        'label': 'U',
+    },
     'l': {
         'shape': np.array([
             [1, 0],
@@ -246,16 +254,16 @@ class Application(tk.Frame):
 
         # Volume display
         self.total_volume = tk.Label(self, text="total")
-        self.total_volume.grid(row=i+1, column=0, columnspan=8)
+        self.total_volume.grid(row=i+2, column=0, columnspan=8)
         self.total_volume["text"] = f"Total Block value: {self.total_value}"
 
         # Solve button
         self.solve_button = tk.Button(self, text="Solve", command=self.solve)
-        self.solve_button.grid(row=i+2, column=0, columnspan=8)
+        self.solve_button.grid(row=i+3, column=0, columnspan=8)
 
         # Result display
         self.result_label = tk.Label(self, text="")
-        self.result_label.grid(row=i+3, column=0, columnspan=8)
+        self.result_label.grid(row=i+4, column=0, columnspan=8)
     
     def update_total_value(self, event=None):
         # Reset the total value to 0 before calculating it again
@@ -299,7 +307,7 @@ class Application(tk.Frame):
             messagebox.showwarning("Invalid Input", "Please enter valid numbers for all fields.")
 
     def display_solution(self, solved_puzzle):
-        start_row = 12  # Start after the buffer row and an additional space for clarity
+        start_row = 15  # Start after the buffer row and an additional space for clarity
 
         # Calculate block width for proper display (optional)
         block_width = max(len(str(item)) for row in solved_puzzle for item in row)
