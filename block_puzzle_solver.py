@@ -229,16 +229,16 @@ class Application(tk.Frame):
             
             entry = tk.Entry(self)
             entry.insert(0, "0")  # Set default value to 0
-            entry.grid(row=i, column=j+2)
+            entry.grid(row=i+1, column=j+1)
             
             self.block_entries[block_name] = entry
             
             # Increase column count by 2 for the next entry pair (label and entry)
-            j += 3
+            j += 2
             
             # If we have added 4 input pairs, increase row count and reset column count
             if j >= 8:
-                i += 1
+                i += 2
                 j = 0
 
         for block_name, entry in self.block_entries.items():
