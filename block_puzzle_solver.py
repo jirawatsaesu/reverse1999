@@ -30,6 +30,16 @@ blocks = {
         'quantity': 0,
         'label': 'U',
     },
+    'plus': {
+        'shape': np.array([
+            [0, 1, 0],
+            [1, 1, 1],
+            [0, 1, 0]
+        ]),
+        'quantity': 0,
+        'label': '+',
+        'unique_rotations': 1
+    },
     'l': {
         'shape': np.array([
             [1, 0],
