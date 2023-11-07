@@ -128,6 +128,8 @@ blocks = {
 block_colors = {
     'Z': 'red',
     'T': 'green',
+    'U': 'brown',
+    '+': 'violet',
     'L': 'blue',
     'J': 'orange',
     's': 'yellow',
@@ -138,7 +140,6 @@ block_colors = {
     'l': 'lime',
     'i': 'navy',
     'o': 'grey',
-    '.': 'white'  # Assuming that empty cells are represented by a dot
 }
 
 
