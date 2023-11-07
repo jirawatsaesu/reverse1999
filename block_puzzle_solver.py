@@ -101,8 +101,8 @@ blocks = {
     },
     'short_l': {
         'shape': np.array([
-            [1, 0],
-            [1, 1]
+            [1, 1],
+            [1, 0]
         ]),
         'quantity': 0,
         'label': 'l'
