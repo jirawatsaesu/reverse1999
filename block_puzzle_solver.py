@@ -10,7 +10,6 @@ blocks = {
             [0, 1, 0],
             [0, 1, 1]
         ]),
-        'quantity': 0,
         'label': 'Z'
     },
     'long_t': {
@@ -19,7 +18,6 @@ blocks = {
             [0, 1, 0],
             [1, 1, 1]
         ]),
-        'quantity': 0,
         'label': 'T'
     },
     'u': {
@@ -27,7 +25,6 @@ blocks = {
             [1, 0, 1],
             [1, 1, 1]
         ]),
-        'quantity': 0,
         'label': 'U',
     },
     'plus': {
@@ -36,7 +33,6 @@ blocks = {
             [1, 1, 1],
             [0, 1, 0]
         ]),
-        'quantity': 0,
         'label': '+',
         'unique_rotations': 1
     },
@@ -46,7 +42,6 @@ blocks = {
             [1, 0],
             [1, 1]
         ]),
-        'quantity': 0,
         'label': 'L'
     },
     'j': {
@@ -55,7 +50,6 @@ blocks = {
             [0, 1],
             [1, 1]
         ]),
-        'quantity': 0,
         'label': 'J'
     },
     's': {
@@ -63,7 +57,6 @@ blocks = {
             [0, 1, 1],
             [1, 1, 0]
         ]),
-        'quantity': 0,
         'label': 's'
     },
     'z': {
@@ -71,7 +64,6 @@ blocks = {
             [1, 1, 0],
             [0, 1, 1]
         ]),
-        'quantity': 0,
         'label': 'z'
     },
     'square': {
@@ -79,7 +71,6 @@ blocks = {
             [1, 1],
             [1, 1]
         ]),
-        'quantity': 0,
         'label': 'O',
         'unique_rotations': 1
     },
@@ -88,14 +79,12 @@ blocks = {
             [0, 1, 0],
             [1, 1, 1]
         ]),
-        'quantity': 0,
         'label': 't'
     },
     'i': {
         'shape': np.array([
             [1, 1, 1, 1]
         ]),
-        'quantity': 0,
         'label': 'I',
         'unique_rotations': 2
     },
@@ -104,14 +93,12 @@ blocks = {
             [1, 1],
             [1, 0]
         ]),
-        'quantity': 0,
         'label': 'l'
     },
     'short_i': {
         'shape': np.array([
             [1, 1]
         ]),
-        'quantity': 0,
         'label': 'i',
         'unique_rotations': 2
     },
@@ -119,7 +106,6 @@ blocks = {
         'shape': np.array([
             [1]
         ]),
-        'quantity': 0,
         'label': 'o',
         'unique_rotations': 1
     }
