@@ -246,6 +246,9 @@ class Application(tk.Frame):
                 i += 2
                 j = 0
 
+        self.height_entry.bind('<KeyRelease>', self.update_total_value)
+        self.width_entry.bind('<KeyRelease>', self.update_total_value)
+
         for block_name, entry in self.block_entries.items():
             entry.bind('<KeyRelease>', self.update_total_value)
 
