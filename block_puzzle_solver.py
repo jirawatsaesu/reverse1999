@@ -276,6 +276,20 @@ class Application(tk.Frame):
                 # If the entry is not a number, we can either skip it or set it to 0
                 continue
 
+        # Calculate the area of the puzzle
+        try:
+            height = int(self.height_entry.get())
+            width = int(self.width_entry.get())
+            puzzle_area = height * width
+        except ValueError:
+            puzzle_area = 0  # Default to 0 if height/width are invalid
+
+        # Enable or disable the "Solve" button
+        if self.total_value > puzzle_area:
+            self.solve_button["state"] = "disabled"
+        else:
+            self.solve_button["state"] = "normal"
+
         # Now update the volume label's text with the new total value
         self.total_volume["text"] = f"Total block value: {self.total_value}"
 
