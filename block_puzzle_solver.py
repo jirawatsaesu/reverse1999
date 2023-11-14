@@ -200,6 +200,7 @@ class Application(tk.Frame):
         self.grid()
         self.total_value = 0
         self.create_widgets()
+        self.solution_labels = []  # List to keep track of solution labels
 
     def create_widgets(self):
         default_puzzle_size = 5
@@ -299,6 +300,9 @@ class Application(tk.Frame):
     def solve(self):
         try:
             # Clear any previous solution
+            for label in self.solution_labels:
+                label.destroy()
+            self.solution_labels.clear()
             self.result_label["text"] = ""
 
             # Get puzzle dimensions
@@ -320,14 +324,11 @@ class Application(tk.Frame):
                 self.display_solution(solved_puzzle)
             else:
                 self.result_label["text"] = "No solution exists."
-        except ValueError as e:
+        except ValueError:
             messagebox.showwarning("Invalid Input", "Please enter valid numbers for all fields.")
 
     def display_solution(self, solved_puzzle):
         start_row = 15  # Start after the buffer row and an additional space for clarity
-
-        # Calculate block width for proper display (optional)
-        block_width = max(len(str(item)) for row in solved_puzzle for item in row)
 
         # Display the solution grid
         for i, row in enumerate(solved_puzzle):
@@ -336,10 +337,11 @@ class Application(tk.Frame):
                 color = block_colors.get(block_label, 'white')  # Fetch the color for the block
 
                 # Create a label for each cell in the solution grid
-                cell_label = tk.Label(self, text=f"{block_label}" * block_width, bg=color, borderwidth=1, relief="solid")
+                cell_label = tk.Label(self, text=f"{block_label}", bg=color, borderwidth=1, relief="solid")
 
                 # Adjust the row index by adding start_row to place it under the input fields
                 cell_label.grid(row=start_row + i, column=j, sticky="nsew", padx=1, pady=1)
+                self.solution_labels.append(cell_label)  # Add the label to the list
 
         # Adjust row/column configurations for better display if needed
         for i in range(len(solved_puzzle)):
