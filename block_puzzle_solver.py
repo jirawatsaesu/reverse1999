@@ -204,17 +204,17 @@ class Application(tk.Frame):
     def create_widgets(self):
         default_puzzle_size = 5
 
-        self.height_label = tk.Label(self, text="Height:")
-        self.height_label.grid(row=0, column=0)
-        self.height_entry = tk.Entry(self)
-        self.height_entry.insert(0, str(default_puzzle_size))
-        self.height_entry.grid(row=0, column=1)
-
         self.width_label = tk.Label(self, text="Width:")
-        self.width_label.grid(row=1, column=0)
+        self.width_label.grid(row=0, column=0)
         self.width_entry = tk.Entry(self)
         self.width_entry.insert(0, str(default_puzzle_size))
-        self.width_entry.grid(row=1, column=1)
+        self.width_entry.grid(row=0, column=1)
+
+        self.height_label = tk.Label(self, text="Height:")
+        self.height_label.grid(row=1, column=0)
+        self.height_entry = tk.Entry(self)
+        self.height_entry.insert(0, str(default_puzzle_size))
+        self.height_entry.grid(row=1, column=1)
 
         # Label for the block entries
         self.blocks_label = tk.Label(self, text="Blocks:")
