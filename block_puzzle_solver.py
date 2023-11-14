@@ -295,6 +295,9 @@ class Application(tk.Frame):
 
     def solve(self):
         try:
+            # Clear any previous solution
+            self.result_label["text"] = ""
+
             # Get puzzle dimensions
             height = int(self.height_entry.get())
             width = int(self.width_entry.get())
