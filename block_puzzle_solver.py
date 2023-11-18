@@ -10,7 +10,8 @@ blocks = {
             [0, 1, 0],
             [0, 1, 1]
         ]),
-        'label': 'Z'
+        'label': 'Z',
+        'unique_rotations': 1
     },
     'long_t': {
         'shape': np.array([
@@ -18,7 +19,8 @@ blocks = {
             [0, 1, 0],
             [1, 1, 1]
         ]),
-        'label': 'T'
+        'label': 'T',
+        'unique_rotations': 1
     },
     'u': {
         'shape': np.array([
@@ -26,6 +28,7 @@ blocks = {
             [1, 1, 1]
         ]),
         'label': 'U',
+        'unique_rotations': 1
     },
     'plus': {
         'shape': np.array([
