@@ -160,6 +160,11 @@ def get_block_representation(block, fill='[]', empty='  '):
     """Create a string representation of a block with given fill and empty symbols."""
     return '\n'.join([''.join([fill if cell else empty for cell in row]) for row in block])
 
+def order_blocks(blocks):
+    # Sort blocks by size (number of filled cells) and then by number of unique rotations (fewer first)
+    sorted_blocks = sorted(blocks.items(), key=lambda x: (-np.sum(x[1]['shape']), 'unique_rotations' in x[1]))
+    return [block[0] for block in sorted_blocks]
+
 def solve_puzzle(puzzle, blocks, block_keys=None, idx=0):
     if block_keys is None:
         block_keys = list(blocks.keys())
@@ -319,8 +324,10 @@ class Application(tk.Frame):
             # Initialize the puzzle grid with spaces representing empty slots
             puzzle_grid = np.full((height, width), ' ', dtype='<U1')
 
+            ordered_block_keys = order_blocks(blocks)
+
             # Attempt to solve the puzzle
-            solution_exists, solved_puzzle = solve_puzzle(puzzle_grid, blocks)
+            solution_exists, solved_puzzle = solve_puzzle(puzzle_grid, blocks, ordered_block_keys)
             
             if solution_exists:
                 # Show the solution in the result label
