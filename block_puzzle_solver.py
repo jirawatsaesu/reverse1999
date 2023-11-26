@@ -3,6 +3,7 @@ from tkinter import messagebox
 from config import blocks, block_colors
 import numpy as np
 from solve_puzzle import solve_puzzle
+import time
 
 def get_block_representation(block, fill='[]', empty='  '):
     """Create a string representation of a block with given fill and empty symbols."""
@@ -156,7 +157,11 @@ class Application(tk.Frame):
             ordered_block_keys = order_blocks(blocks)
 
             # Attempt to solve the puzzle
+            start_time = time.time()
             solution_exists, solved_puzzle = solve_puzzle(puzzle_grid, blocks, ordered_block_keys)
+            end_time = time.time()
+            solving_time = end_time - start_time
+            print(f"Solving time: {solving_time:.2f} seconds")
             
             if solution_exists:
                 # Show the solution in the result label
