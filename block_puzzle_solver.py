@@ -171,7 +171,8 @@ class Application(tk.Frame):
         except ValueError:
             messagebox.showwarning("Invalid Input", "Please enter valid numbers for all fields.")
 
-root = tk.Tk()
-root.title("Block Puzzle Solver")
-app = Application(master=root)
-app.mainloop()
+if __name__ == "__main__":
+    root = tk.Tk()
+    root.title("Block Puzzle Solver")
+    app = Application(master=root)
+    app.mainloop()
